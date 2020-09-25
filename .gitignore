@@ -1,2 +1,2 @@
 # Ignore the default SQLite database.
-/amazonranking/db.sqlite3
+db.sqlite3
