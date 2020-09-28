@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from pages import views
+from RankingTool import views as rankingToolViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.home_view, name="home"),
     path('admin/', admin.site.urls),
+    path('scraper/', rankingToolViews.scraper, name="scraper"),
     
 ]
 
