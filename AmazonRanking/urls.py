@@ -19,9 +19,13 @@ from pages import views
 from RankingTool import views as rankingToolViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from RankingTool.views import product_detail_view, product_create_view
+
 urlpatterns = [
     path('', views.home_view, name="home"),
     path('admin/', admin.site.urls),
+    path('product/', product_detail_view),
+    path('create/', product_create_view),
     path('scraper/', rankingToolViews.scraper, name="scraper"),
     
 ]
