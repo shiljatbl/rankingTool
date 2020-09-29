@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ASIN</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Position</th>
+        <th scope="col">Page</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Image Url</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for instance in object_list %}
+      <tr>
+        <td>{{ instance.asin}}</td>
+        <td>{{ instance.title}}</td>
+        <td>{{ instance.price}}</td>
+        <td>{{ instance.position}}</td>
+        <td>{{ instance.page}}</td>
+        <td>{{ instance.rating}}</td>
+        <td>{{ instance.image_url}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
+
