@@ -4,11 +4,8 @@ from django.db import models
 
 class Product(models.Model):
     asin = models.CharField(max_length=10, default="Test")
-    title = models.CharField(max_length=200,default="Test")
-    price = models.FloatField(default=0.0)
-    position = models.IntegerField(default=0)
-    page = models.IntegerField(default=0)
-    rating = models.CharField(max_length=200,default="Test")
+    sku = models.CharField(max_length=200,default="Test")
+    keyword = models.CharField(max_length=200,default="Test")
     image_url = models.CharField(max_length=200,default="Test")
 
 
