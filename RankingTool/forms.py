@@ -8,8 +8,7 @@ class ProductForm(forms.ModelForm):
         fields = [
             'asin',
             'sku',
-            'image_url',
             'keyword',
-            
+            'image_url',
+          ]
 
-        ]

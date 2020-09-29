@@ -74,3 +74,4 @@ def product_list(request):
         "object_list": queryset
     }
     return render(request, "product/product_list.html", context)
+

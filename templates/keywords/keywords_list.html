@@ -5,24 +5,19 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">ASIN</th>
         <th scope="col">Keyword</th>
-        <th scope="col">Image URL</th>
-        <th scope="col">SKU</th>
+        
         
       </tr>
     </thead>
     <tbody>
       {% for instance in object_list %}
       <tr>
-        <td>{{ instance.asin}}</td>
         <td>{{ instance.keyword}}</td>
-        <td>{{ instance.image_url}}</td>
-        <td>{{ instance.sku}}</td>
+   
         
       </tr>
       {% endfor %}
     </tbody>
   </table>
 {% endblock content %}
-
