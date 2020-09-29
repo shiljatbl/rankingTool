@@ -4,8 +4,12 @@ import csv
 from selenium.webdriver.chrome.options import Options
 import time
 import geolocation
-from models import Product
+from RankingTool.models import Product
+import django
+import os
 
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+django.setup()
 
 
 productList = []

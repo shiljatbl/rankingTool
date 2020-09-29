@@ -27,6 +27,7 @@ urlpatterns = [
     path('product/<int:id>', product_detail_view, name="product"),
     path('create/', product_create_view),
     path('scraper/', rankingToolViews.scraper, name="scraper"),
+    path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
     path('product/<int:id>/delete/', product_delete_view, name="delete-product"),
     path('product/', product_list, name="product-list"),
     
