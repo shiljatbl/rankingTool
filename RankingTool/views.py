@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Product
 from .forms import ProductForm
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
-
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
+from django.urls import reverse
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import csv
@@ -42,58 +42,44 @@ def scraper(request, asin):
 
 
 class ProductsView(ListView):
-    model = Product
+    queryset = Product.objects.all()
     template_name = 'product/product_list.html'
 
 
 class ProductCreateView(CreateView):
-    model = Product
-    fields = [
-        'asin',
-        'keyword',
-        'sku',
-        'image_url',
-
-    ]
+    form_class = ProductForm
+    queryset = Product.objects.all()
     template_name = 'product/products_create.html'
 
-
-
-def product_create_view(request):
-    form = ProductForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-    
-    context = {
-        "form": form
-    }
-    return render (request, "product/products_create.html", context)
-
-
-def product_detail_view(request, id):
-    obj = get_object_or_404(Product, id=id)
-    context = {
-        "object": obj
-    }
-    return render (request, "product/detail.html", context)
-
-def product_delete_view(request, id):
-    obj = get_object_or_404(Product, id = id)
-    if request.method == 'POST':
-        obj.delete()
-        return redirect('../')
-    context = {
-        "object": obj
-    }
-    return render(request, "product/product_delete.html", context)
-
-def product_list(request):
+class ProductDetailView(DetailView):
     queryset = Product.objects.all()
-    context = {
-        "object_list": queryset
-    }
-    return render(request, "product/product_list.html", context)
+    template_name = 'product/detail.html'
 
-# def product_update_view(request)
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Product, id=id_)
+
+class ProductUpdateView(UpdateView):
+    template_name = 'product/products_create.html'
+    form_class = ProductForm
+    queryset = Product.objects.all()
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Product, id=id_)
+
+
+class ProductDeleteView(DeleteView):
+    template_name = 'product/product_delete.html'
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Product, id=id_)
+
+    def get_success_url(self):
+        return reverse('product-list')
+
+
+
 
 
