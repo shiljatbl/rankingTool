@@ -75,3 +75,4 @@ def product_list(request):
     }
     return render(request, "product/product_list.html", context)
 
+# def product_update_view(request)
