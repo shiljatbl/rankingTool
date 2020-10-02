@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Product
 from .forms import ProductForm
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -40,6 +41,24 @@ def scraper(request, asin):
     return render(request, "scraper.html", context)
 
 
+class ProductsView(ListView):
+    model = Product
+    template_name = 'product/product_list.html'
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = [
+        'asin',
+        'keyword',
+        'sku',
+        'image_url',
+
+    ]
+    template_name = 'product/products_create.html'
+
+
+
 def product_create_view(request):
     form = ProductForm(request.POST or None)
     if form.is_valid():
@@ -76,3 +95,5 @@ def product_list(request):
     return render(request, "product/product_list.html", context)
 
 # def product_update_view(request)
+
+

@@ -19,17 +19,17 @@ from pages import views
 from RankingTool import views as rankingToolViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from RankingTool.views import product_detail_view, product_create_view, product_delete_view, product_list
+from RankingTool.views import product_detail_view, product_create_view, product_delete_view, product_list, ProductsView, ProductCreateView
 
 urlpatterns = [
     path('', views.home_view, name="home"),
     path('admin/', admin.site.urls),
     path('product/<int:id>', product_detail_view, name="product"),
-    path('create/', product_create_view),
+    path('product/create/', ProductCreateView.as_view(), name="product-create"),
     path('scraper/', rankingToolViews.scraper, name="scraper"),
     path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
     path('product/<int:id>/delete/', product_delete_view, name="delete-product"),
-    path('product/', product_list, name="product-list"),
+    path('product/', ProductsView.as_view(), name="product-list"),
     
     
 ]
