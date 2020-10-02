@@ -24,7 +24,7 @@
         <td>{{ instance.asin}}</td>
         <td>{{ instance.keyword}}</td>
         <td><a class="btn btn-primary" href="{% url 'product-update' instance.id %}">Edit</a></td>
-        <td><a class="btn btn-primary" href="{% url 'delete-product' instance.id %}">Delete</a></td>
+        <td><a class="btn btn-primary" href="{% url 'product-delete' instance.id %}">Delete</a></td>
         
       </tr>
       {% endfor %}

@@ -49,18 +49,18 @@ class ProductsView(ListView):
 class ProductCreateView(CreateView):
     form_class = ProductForm
     queryset = Product.objects.all()
-    template_name = 'product/products_create.html'
+    template_name = 'product/product_create.html'
 
 class ProductDetailView(DetailView):
     queryset = Product.objects.all()
-    template_name = 'product/detail.html'
+    template_name = 'product/product_detail.html'
 
     def get_object(self):
         id_ = self.kwargs.get("id")
         return get_object_or_404(Product, id=id_)
 
 class ProductUpdateView(UpdateView):
-    template_name = 'product/products_create.html'
+    template_name = 'product/product_create.html'
     form_class = ProductForm
     queryset = Product.objects.all()
 

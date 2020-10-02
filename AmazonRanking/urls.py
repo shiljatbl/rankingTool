@@ -26,11 +26,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('product/<int:id>', ProductDetailView.as_view(), name="product"),
     path('product/create/', ProductCreateView.as_view(), name="product-create"),
-    path('scraper/', rankingToolViews.scraper, name="scraper"),
-    path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
-    path('product/<int:id>/delete/', ProductDeleteView.as_view(), name="delete-product"),
+    path('product/<int:id>/delete/', ProductDeleteView.as_view(), name="product-delete"),
     path('product/', ProductsView.as_view(), name="product-list"),
     path('product/<int:id>/update/', ProductUpdateView.as_view(), name="product-update"),
+    path('scraper/', rankingToolViews.scraper, name="scraper"),
+    path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
     
     
 ]
