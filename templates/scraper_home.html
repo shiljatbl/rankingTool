@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Please enter a keyword:</h2>
+<form method="POST" action="/keyword/">
+    {% csrf_token %}
+    <input type="text" name="keyword" placeholder="Enter keywords...">
+    <input type="submit" value="Scrape">
+</form>
+{% endblock %}

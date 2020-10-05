@@ -29,8 +29,9 @@ urlpatterns = [
     path('product/<int:id>/delete/', ProductDeleteView.as_view(), name="product-delete"),
     path('product/', ProductsView.as_view(), name="product-list"),
     path('product/<int:id>/update/', ProductUpdateView.as_view(), name="product-update"),
-    path('scraper/', rankingToolViews.scraper, name="scraper"),
-    path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
+    path('keyword/', rankingToolViews.scraper_home, name="keyword"),
+    path('keyword/<str:keyword>', rankingToolViews.scraper_keyword, name="scraper-keyword")
+    #path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
     
     
 ]

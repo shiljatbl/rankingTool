@@ -19,3 +19,10 @@ class Product(models.Model):
     def get_absolute_url(self): # new
         return reverse('product', args=[str(self.id)])
 
+class Keyword(models.Model):
+    keyword = models.CharField(max_length=200,default="Test")
+    
+    def __str__(self):
+        return self.keyword
+
+    

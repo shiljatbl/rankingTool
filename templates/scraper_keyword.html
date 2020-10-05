@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Scraping Amazon.de for {{ keyword }}</h1>
+
+<table class="table table-responsive">
+{% for product in products %}
+    <tr>
+        <td>
+            {{ product.asin }}
+        </td>
+        <td>
+            <img src="{{ product.image_url }}" width="100" height="100">
+        </td>
+
+    </tr>
+{% endfor %}
+</table> 
+
+
+
+
+{% endblock %}

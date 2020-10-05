@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product
+from .models import Product, Keyword
 
 
 class ProductForm(forms.ModelForm):
@@ -12,3 +12,9 @@ class ProductForm(forms.ModelForm):
             'image_url',
           ]
 
+class KeywordForm(forms.ModelForm):
+    class Meta:
+        model = Keyword
+        fields = [
+            'keyword'
+        ]
