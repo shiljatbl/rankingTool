@@ -55,7 +55,7 @@ def KeywordScrape(keyword):
 
     print("Retrieving data...")
 
-    for x in range(1, 11):
+    for x in range(1, 6):
         newUrl = "https://www.amazon.de/s?k=" + keyword.replace(" ", "+") + "&page=" + str(x)
         pages.append(newUrl)
     #print(pages)

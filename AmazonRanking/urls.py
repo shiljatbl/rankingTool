@@ -20,6 +20,7 @@ from RankingTool import views as rankingToolViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView
+from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
 
 urlpatterns = [
     path('', views.home_view, name="home"),
@@ -30,7 +31,12 @@ urlpatterns = [
     path('product/', ProductsView.as_view(), name="product-list"),
     path('product/<int:id>/update/', ProductUpdateView.as_view(), name="product-update"),
     path('keyword/', rankingToolViews.scraper_home, name="keyword"),
-    path('keyword/<str:keyword>', rankingToolViews.scraper_keyword, name="scraper-keyword")
+    path('keyword/<str:keyword>', rankingToolViews.scraper_keyword, name="scraper-keyword"),
+    path('scrape-product/<int:id>', ScrapeProductDetailView.as_view(), name="scrape-product"),
+    path('scrape-product/create/', ScrapeProductCreateView.as_view(), name="scrape-product-create"),
+    path('scrape-product/<int:id>/delete/', ScrapeProductDeleteView.as_view(), name="scrape-product-delete"),
+    path('scrape-product/', ScrapeProductsView.as_view(), name="scrape-product-list"),
+    path('scrape-product/<int:id>/update/', ScrapeProductUpdateView.as_view(), name="scrape-product-update"),
     #path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
     
     

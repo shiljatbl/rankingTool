@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a class="btn btn-primary" href="{% url 'scrape-product-create' %}">Create New Item</a>
+
+<hr>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">ASIN</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Keyword</th>
+        <th scope="col">Page</th>
+        <th scope="col">Position</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for instance in object_list %}
+      <tr>
+        <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
+        <td><a href="{% url 'scrape-product' instance.id %}">{{ instance.asin}}</a></td>
+        <td>{{ instance.title}}</td>
+        <td>{{ instance.price}}</td>
+        <td>{{ instance.keyword}}</td>
+        <td>{{ instance.page}}</td>
+        <td>{{ instance.position}}</td>
+        <td>{{ instance.rating}}</td>
+        <td>{{ instance.date}}</td>
+
+
+        <td><a class="btn btn-primary" href="{% url 'scrape-product-update' instance.id %}">Edit</a></td>
+        <td><a class="btn btn-primary" href="{% url 'scrape-product-delete' instance.id %}">Delete</a></td>
+        
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
+
