@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import csv
 from selenium.webdriver.chrome.options import Options
 import time
-from RankingTool.models import Product
+from RankingTool.models import Product, ScrapeProduct
 from selenium.webdriver.common.keys import Keys
 import django
 import os
@@ -44,7 +44,7 @@ def KeywordScrape(keyword):
     okButton.send_keys(Keys.ENTER)
     time.sleep(1)
     #driver.get(urlSearch)
-    soup = BeautifulSoup(driver.page_source, 'lxml')
+    driver.get("https://www.amazon.de")
     print("Geolocation setup done.")
     time.sleep(1)
         
@@ -90,7 +90,7 @@ def KeywordScrape(keyword):
             "data-component-type": item_tag})
 
         for r in result:
-            newProduct = Product()
+            newProduct = ScrapeProduct()
 
             try:
                 newProduct.asin = r.get("data-asin")
@@ -100,7 +100,7 @@ def KeywordScrape(keyword):
             try:
                 newProduct.position = str(r.get("data-index"))
             except:
-                newProduct.asin = "NoData"
+                newProduct.position = "NoData"
 
             try:
                 newProduct.page = str(pageCounter)

@@ -5,13 +5,66 @@
 <h1>Scraping Amazon.de for {{ keyword }}</h1>
 
 <table class="table table-responsive">
-{% for product in products %}
+<tr>
+    <th>
+        Image
+    </th>
+    <th>
+        ASIN
+    </th>
+    <th>
+        Title
+    </th>
+    <th>
+        Price
+    </th>
+    <th>
+        Page
+    </th>
+    <th>
+        Position
+    </th>
+    <th>
+        Rating
+    </th>
+    <th>
+        Rating
+    </th>
+</tr>
+
+    {% for product in products %}
     <tr>
+        
+        <td>
+            <img src="{{ product.image_url }}" style="width: 50%; height: auto">
+        </td>
+
         <td>
             {{ product.asin }}
         </td>
+
         <td>
-            <img src="{{ product.image_url }}" width="100" height="100">
+            {{ product.title }}
+        </td>
+
+        <td>
+            {{ product.price }}
+        </td>
+
+        <td>
+            {{ product.page }}
+        </td>
+
+        <td>
+            {{ product.position }}
+        </td>
+
+        <td>
+            {{ product.rating }}
+        </td>
+
+        <td>
+            <a class="btn btn-primary" href="{% url 'product-create' %}">Create New Item</a>
         </td>
 
     </tr>
