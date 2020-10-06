@@ -29,21 +29,7 @@ def scraper_home(request):
         product_list = KeywordScrape(keyword)
         
         for product in product_list:
-            new_product = ScrapeProduct()
-
-            new_product.asin = product.asin
-            new_product.keyword = keyword
-            new_product.image_url = product.image_url
-            new_product.title = product.title
-            new_product.position = int(product.position)
-            new_product.page = int(product.page)
-            new_product.rating = product.rating
-
-            try:
-                new_product.price = Decimal(product.price.replace(',','.'))
-            except:
-                new_product.price = 0
-
+            new_product = product
             new_product.save()
 
 
@@ -68,22 +54,9 @@ def scraper_keyword(request, keyword):
     product_list = KeywordScrape(keyword)
     
     for product in product_list:
-        new_product = ScrapeProduct()
+            new_product = product
+            new_product.save()
 
-        new_product.asin = product.asin
-        new_product.keyword = keyword
-        new_product.image_url = product.image_url
-        new_product.title = product.title
-        new_product.position = int(product.position)
-        new_product.page = int(product.page)
-        new_product.rating = product.rating
-
-        try:
-            new_product.price = Decimal(product.price.replace(',','.'))
-        except:
-            new_product.price = 0
-
-        new_product.save()
 
 
     context = {

@@ -23,13 +23,11 @@ class ScrapeProductForm(forms.ModelForm):
     class Meta:
         model = ScrapeProduct
         fields = [
-            'asin',
+            'product',
             'title',
-            'keyword',
             'position',
             'page',
             'rating',
             'price',
-            'image_url',
             'date'
         ]

@@ -3,10 +3,11 @@ from bs4 import BeautifulSoup
 import csv
 from selenium.webdriver.chrome.options import Options
 import time
-from RankingTool.models import Product, ScrapeProduct
+from RankingTool.models import Product, ScrapeProduct, Keyword
 from selenium.webdriver.common.keys import Keys
 import django
 import os
+from decimal import Decimal
 
 
 def KeywordScrape(keyword):
@@ -90,7 +91,9 @@ def KeywordScrape(keyword):
             "data-component-type": item_tag})
 
         for r in result:
-            newProduct = ScrapeProduct()
+            newScrapeProduct = ScrapeProduct()
+            newProduct = Product()
+            
 
             try:
                 newProduct.asin = r.get("data-asin")
@@ -98,35 +101,47 @@ def KeywordScrape(keyword):
                 newProduct.asin = "NoData"
 
             try:
-                newProduct.position = str(r.get("data-index"))
+                newScrapeProduct.position = str(r.get("data-index"))
             except:
-                newProduct.position = "NoData"
+                newScrapeProduct.position = "NoData"
 
             try:
-                newProduct.page = str(pageCounter)
+                newScrapeProduct.page = str(pageCounter)
             except:
-                newProduct.page = "NoData"
+                newScrapeProduct.page = "NoData"
             try:
-                newProduct.title = r.find("span", {"class": "a-size-base-plus a-color-base a-text-normal"}).get_text()
+                newScrapeProduct.title = r.find("span", {"class": "a-size-base-plus a-color-base a-text-normal"}).get_text()
             except:
-                newProduct.title = "NoData"
+                newScrapeProduct.title = "NoData"
             try:
-                newProduct.rating = r.find("span", {"class": "a-icon-alt"}).get_text()
+                newScrapeProduct.rating = r.find("span", {"class": "a-icon-alt"}).get_text()
             except:
-                newProduct.rating ="NoData"
+                newScrapeProduct.rating ="NoData"
             try:
                 #27:-7 for US
                 #26:-9 za DE
-                newProduct.price = str(r.find("span", {"class": "a-offscreen"}))[26:-9]
+                new_price = str(r.find("span", {"class": "a-offscreen"}))[26:-9]
+                newScrapeProduct.price = Decimal(new_price.replace(',', '.'))
 
             except:
-                newProduct.price = "NoData"
+                newScrapeProduct.price = "NoData"
             try:
                 newProduct.image_url = r.find("img").get("src")
             except:
                 newProduct.image_url = "NoData"
+            
 
-            productList.append(newProduct)
+
+            new_keyword = Keyword(keyword=keyword)
+            
+            
+            
+
+            newProduct.keyword = new_keyword
+            new_keyword.save()
+            newScrapeProduct.product = newProduct
+            newProduct.save()
+            productList.append(newScrapeProduct)
         pageCounter += 1
 
         driver.close()
