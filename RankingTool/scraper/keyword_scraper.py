@@ -103,12 +103,12 @@ def KeywordScrape(keyword):
             try:
                 newScrapeProduct.position = str(r.get("data-index"))
             except:
-                newScrapeProduct.position = "NoData"
+                newScrapeProduct.position = 999
 
             try:
                 newScrapeProduct.page = str(pageCounter)
             except:
-                newScrapeProduct.page = "NoData"
+                newScrapeProduct.page = 999
             try:
                 newScrapeProduct.title = r.find("span", {"class": "a-size-base-plus a-color-base a-text-normal"}).get_text()
             except:
@@ -124,7 +124,7 @@ def KeywordScrape(keyword):
                 newScrapeProduct.price = Decimal(new_price.replace(',', '.'))
 
             except:
-                newScrapeProduct.price = "NoData"
+                newScrapeProduct.price = 0
             try:
                 newProduct.image_url = r.find("img").get("src")
             except:
@@ -141,6 +141,7 @@ def KeywordScrape(keyword):
             new_keyword.save()
             newScrapeProduct.product = newProduct
             newProduct.save()
+            newScrapeProduct.save()
             productList.append(newScrapeProduct)
         pageCounter += 1
 

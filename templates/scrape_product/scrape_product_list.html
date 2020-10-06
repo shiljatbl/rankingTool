@@ -25,7 +25,7 @@
     <tbody>
       {% for instance in object_list %}
       <tr>
-        <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
+        <td><img src="{{ instance.product.image_url }}" width="50" height="50"></td>
         <td><a href="{% url 'scrape-product' instance.id %}">{{ instance.asin}}</a></td>
         <td>{{ instance.title}}</td>
         <td>{{ instance.price}}</td>

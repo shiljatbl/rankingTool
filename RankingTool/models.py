@@ -37,7 +37,7 @@ class ScrapeProduct(models.Model):
     date = models.DateTimeField(default=datetime.now())
     
     def __str__(self):
-        return self.asin
+        return self.product.asin
 
     def get_absolute_url(self): # new
         return reverse('scrape-product', args=[str(self.id)])
