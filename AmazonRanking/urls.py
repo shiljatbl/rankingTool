@@ -24,7 +24,7 @@ from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, Scrap
 
 urlpatterns = [
     path('', views.home_view, name="home"),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name="admin"),
     path('product/<int:id>', ProductDetailView.as_view(), name="product"),
     path('product/create/', ProductCreateView.as_view(), name="product-create"),
     path('product/<int:id>/delete/', ProductDeleteView.as_view(), name="product-delete"),

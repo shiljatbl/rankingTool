@@ -13,7 +13,7 @@
         <th scope="col">ASIN</th>
         <th scope="col">Keyword</th>
         <th scope="col"></th>
-        <th scope="col"></th>
+        
       </tr>
     </thead>
     <tbody>
@@ -23,9 +23,11 @@
         <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
         <td>{{ instance.asin}}</td>
         <td>{{ instance.keyword}}</td>
-        <td><a class="btn btn-primary" href="{% url 'product-update' instance.id %}">Edit</a></td>
-        <td><a class="btn btn-primary" href="{% url 'product-delete' instance.id %}">Delete</a></td>
-        
+        <td>
+          <a class="btn btn-primary" href="{% url 'product-update' instance.id %}">Edit</a>
+          <a class="btn btn-primary" href="{% url 'product-delete' instance.id %}">Delete</a>
+          <a class="btn btn-primary" href="{% url 'scraper-keyword' instance.keyword %}">Scrape</a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
