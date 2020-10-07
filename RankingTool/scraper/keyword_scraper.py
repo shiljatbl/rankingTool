@@ -90,70 +90,78 @@ def KeywordScrape(keyword):
         result = soup.find_all("div", {
             "data-component-type": item_tag})
 
+
+        page_position = 1
         for r in result:
-            newScrapeProduct = ScrapeProduct()
+            
+            amazon_ad = r.get('class')[7]
             
             
-            try:
-                new_asin = r.get("data-asin")
-            except:
-                new_asin = "NoData"
+            if not amazon_ad == 'AdHolder':
+                newScrapeProduct = ScrapeProduct()
+                
+                
+                try:
+                    new_asin = r.get("data-asin")
+                except:
+                    new_asin = "NoData"
 
 
-            try:
-                newProduct = Product.objects.get(asin=new_asin)
-            except:
-                newProduct = Product(asin=new_asin)
-            
-            try:
-                newScrapeProduct.position = str(r.get("data-index"))
-            except:
-                newScrapeProduct.position = 999
+                try:
+                    newProduct = Product.objects.get(asin=new_asin)
+                except:
+                    newProduct = Product(asin=new_asin)
+                
+                try:
+                    newScrapeProduct.position = page_position
+                except:
+                    newScrapeProduct.position = 999
 
-            try:
-                newScrapeProduct.page = str(pageCounter)
-            except:
-                newScrapeProduct.page = 999
-            try:
-                newScrapeProduct.title = r.find("span", {"class": "a-size-base-plus a-color-base a-text-normal"}).get_text()
-            except:
-                newScrapeProduct.title = "NoData"
-            try:
-                newScrapeProduct.rating = r.find("span", {"class": "a-icon-alt"}).get_text()
-            except:
-                newScrapeProduct.rating ="NoData"
-            try:
-                #27:-7 for US
-                #26:-9 za DE
-                new_price = str(r.find("span", {"class": "a-offscreen"}))[26:-9]
-                newScrapeProduct.price = Decimal(new_price.replace(',', '.'))
+                try:
+                    newScrapeProduct.page = str(pageCounter)
+                except:
+                    newScrapeProduct.page = 999
+                try:
+                    newScrapeProduct.title = r.find("span", {"class": "a-size-base-plus a-color-base a-text-normal"}).get_text()
+                except:
+                    newScrapeProduct.title = "NoData"
+                try:
+                    newScrapeProduct.rating = r.find("span", {"class": "a-icon-alt"}).get_text()
+                except:
+                    newScrapeProduct.rating ="NoData"
+                try:
+                    #27:-7 for US
+                    #26:-9 za DE
+                    new_price = str(r.find("span", {"class": "a-offscreen"}))[26:-9]
+                    newScrapeProduct.price = Decimal(new_price.replace(',', '.'))
 
-            except:
-                newScrapeProduct.price = 0
-            try:
-                newProduct.image_url = r.find("img").get("src")
-            except:
-                newProduct.image_url = "NoData"
-            
+                except:
+                    newScrapeProduct.price = 0
+                try:
+                    newProduct.image_url = r.find("img").get("src")
+                except:
+                    newProduct.image_url = "NoData"
+                
 
 
-            try:
-                new_keyword = Keyword.objects.get(keyword=keyword)
-            except:
-                new_keyword = Keyword(keyword=keyword)
-            
-            newProduct.keyword = new_keyword
-            new_keyword.save()
-            newScrapeProduct.product = newProduct
-            newProduct.save()
-            newScrapeProduct.save()
-            productList.append(newScrapeProduct)
+                try:
+                    new_keyword = Keyword.objects.get(keyword=keyword)
+                except:
+                    new_keyword = Keyword(keyword=keyword)
+                
+                newProduct.keyword = new_keyword
+                new_keyword.save()
+                newScrapeProduct.product = newProduct
+                newProduct.save()
+                newScrapeProduct.save()
+                productList.append(newScrapeProduct)
+                page_position += 1
         pageCounter += 1
 
-        driver.close()
-        print("Scrape done!")
+    driver.close()
+    print("Scrape done!")
 
-        return productList
+    return productList
 
 
 

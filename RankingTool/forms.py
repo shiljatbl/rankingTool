@@ -10,6 +10,7 @@ class ProductForm(forms.ModelForm):
             'sku',
             'keyword',
             'image_url',
+            'tracked_product'
           ]
 
 class KeywordForm(forms.ModelForm):

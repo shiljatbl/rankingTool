@@ -15,7 +15,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=200,default="-")
     keyword = models.ForeignKey(Keyword, on_delete=models.CASCADE)
     image_url = models.CharField(max_length=200,default="-")
-
+    tracked_product = models.BooleanField(default=False)
 
 
     def __str__(self):

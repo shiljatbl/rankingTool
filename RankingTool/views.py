@@ -7,7 +7,7 @@ from django.urls import reverse
 from .scraper.product_scraper import ProductScraper 
 from .scraper.keyword_scraper import KeywordScrape
 from decimal import Decimal
-
+from django.http import Http404
 
 def scraper(request, keyword):
     
@@ -87,6 +87,18 @@ class ProductDetailView(DetailView):
     def get_object(self):
         id_ = self.kwargs.get("id")
         return get_object_or_404(Product, id=id_)
+
+def product_detail(request, id):
+    
+    product = get_object_or_404(Product, pk=id)
+
+    scraped_data = ScrapeProduct.objects.filter(product__pk=id)
+
+    context = {
+        'product': product,
+        'scraped_data': scraped_data,
+    }
+    return render(request, 'product/product_detail.html', context)
 
 class ProductUpdateView(UpdateView):
     template_name = 'product/product_create.html'

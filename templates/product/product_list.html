@@ -18,17 +18,24 @@
     </thead>
     <tbody>
       {% for instance in object_list %}
-      <tr>
-        <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
-        <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
-        <td>{{ instance.asin}}</td>
-        <td>{{ instance.keyword}}</td>
-        <td>
-          <a class="btn btn-primary" href="{% url 'product-update' instance.id %}">Edit</a>
-          <a class="btn btn-primary" href="{% url 'product-delete' instance.id %}">Delete</a>
-          <a class="btn btn-primary" href="{% url 'scraper-keyword' instance.keyword %}">Scrape</a>
-        </td>
-      </tr>
+      
+        {% if instance.tracked_product == True %}
+        <tr>
+          <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
+          <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
+          <td>{{ instance.asin}}</td>
+          <td>{{ instance.keyword}}</td>
+          <td>
+            <a class="btn btn-primary" href="{% url 'product-update' instance.id %}">Edit</a>
+            <a class="btn btn-primary" href="{% url 'product-delete' instance.id %}">Delete</a>
+            <a class="btn btn-primary" href="{% url 'scraper-keyword' instance.keyword %}">Scrape</a>
+          </td>
+        </tr>
+        {% endif %}
+        
+      
+      
+      
       {% endfor %}
     </tbody>
   </table>
