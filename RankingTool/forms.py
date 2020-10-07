@@ -30,5 +30,6 @@ class ScrapeProductForm(forms.ModelForm):
             'page',
             'rating',
             'price',
-            'date'
+            'date',
+            'keyword'
         ]

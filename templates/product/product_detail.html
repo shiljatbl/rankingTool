@@ -16,16 +16,22 @@
 
                     <div class="col-2">
                         <h3>SKU:</h3>
-                        <h3>Keyword:</h3>
                         <h3>ASIN:</h3>
-                        
+                        <h3>Keywords:</h3>
                     </div>
 
                     <div class="col-4">
                         <h3>{{ product.sku }}</h3>
-                        <h3>{{ product.keyword }}</h3>
                         <h3>{{ product.asin }}</h3>
-                        
+                        <h3>
+                            <ul>
+                            
+                            {% for keyword in keyword_list  %}
+                                <li>{{ keyword.keyword }}</li>
+                            {% endfor %}
+                                
+                            </ul> 
+                        </h3>
                     </div>
 
                     
@@ -48,6 +54,9 @@
                                 Date
                             </th>
                             <th>
+                                Keyword
+                            </th>
+                            <th>
                                 Page
                             </th>
                             <th>
@@ -60,6 +69,7 @@
                         {% for scrapedProduct in scraped_data  %}
                         <tr>
                             <td>{{ scrapedProduct.date }}</td>
+                            <td>{{ scrapedProduct.keyword }}</td>
                             <td>{{ scrapedProduct.page }}</td>
                             <td>{{ scrapedProduct.position }}</td>
                             <td>{{ scrapedProduct.price }}</td>

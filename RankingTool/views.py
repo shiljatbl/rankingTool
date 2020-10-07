@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Product, ScrapeProduct
+from .models import Product, ScrapeProduct, Keyword
 from .forms import ProductForm, KeywordForm, ScrapeProductForm
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse
@@ -45,19 +45,11 @@ def scraper_home(request):
 
 
 def scraper_keyword(request, keyword):
-    context = {}
-
-    
-    # keyword = request.POST.get('keyword')
-
-
     product_list = KeywordScrape(keyword)
     
     for product in product_list:
             new_product = product
             new_product.save()
-
-
 
     context = {
         'products': product_list,
@@ -67,8 +59,13 @@ def scraper_keyword(request, keyword):
     return render(request, "scraper_keyword.html", context)
     
    
+def product_list_view(request):
+    products = Product.objects.filter(tracked_product=True)
+    context = {
+        'products': products
+    }
 
-
+    return render(request, "product/product_list.html", context)
 
 class ProductsView(ListView):
     queryset = Product.objects.all()
@@ -91,12 +88,16 @@ class ProductDetailView(DetailView):
 def product_detail(request, id):
     
     product = get_object_or_404(Product, pk=id)
-
-    scraped_data = ScrapeProduct.objects.filter(product__pk=id)
+    keyword_list = Keyword.objects.filter(product__pk=id)
+    
+    
+    scraped_data = ScrapeProduct.objects.filter(product__pk=id).order_by('-date')
 
     context = {
         'product': product,
         'scraped_data': scraped_data,
+        'keywords': keyword_list,
+        
     }
     return render(request, 'product/product_detail.html', context)
 

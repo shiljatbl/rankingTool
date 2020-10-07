@@ -5,39 +5,72 @@
 <a class="btn btn-primary" href="{% url 'product-create' %}">Create New Item</a>
 
 <hr>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Image</th>
-        <th scope="col">SKU</th>
-        <th scope="col">ASIN</th>
-        <th scope="col">Keyword</th>
-        <th scope="col"></th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      {% for instance in object_list %}
-      
-        {% if instance.tracked_product == True %}
-        <tr>
-          <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
-          <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
-          <td>{{ instance.asin}}</td>
-          <td>{{ instance.keyword}}</td>
-          <td>
-            <a class="btn btn-primary" href="{% url 'product-update' instance.id %}">Edit</a>
-            <a class="btn btn-primary" href="{% url 'product-delete' instance.id %}">Delete</a>
-            <a class="btn btn-primary" href="{% url 'scraper-keyword' instance.keyword %}">Scrape</a>
-          </td>
-        </tr>
-        {% endif %}
-        
-      
-      
-      
-      {% endfor %}
-    </tbody>
-  </table>
+
+<div class="row">
+  <div class="col">
+    <div class="card shadow">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">SKU</th>
+              <th scope="col">ASIN</th>
+              <th scope="col">Keywords</th>
+              <th scope="col">Latest data scrape</th>
+              <th scope="col"></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for instance in products %}
+            
+              {% if instance.tracked_product == True %}
+              <tr>
+                <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
+                <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
+                <td>{{ instance.asin}}</td>
+                <td>
+                  <ul>
+                  {% for keyword in instance.keyword.all  %}
+                    <li>
+                      <div class="row mb-1">
+                        <div class="col-4">
+                          {{ keyword }}
+                        </div>
+                        <div class="col">
+                          <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' keyword %}">Scrape</a>
+                        </div>
+                      </div>
+                       
+                    
+                    </li>
+                  {% endfor %}
+                  </ul>
+                </td>
+                <td>{{ instance.latest_update }}</td>
+                <td>
+                  <a class="btn btn-primary btn-sm" href="{% url 'product-update' instance.id %}">Edit</a>
+                  <a class="btn btn-primary btn-sm" href="{% url 'product-delete' instance.id %}">Delete</a>
+                  <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' instance.keyword %}">Scrape</a>
+                </td>
+              </tr>
+              {% endif %}
+              
+            
+            
+            
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 {% endblock content %}
 
