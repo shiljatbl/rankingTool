@@ -26,10 +26,10 @@
       {% for instance in object_list %}
       <tr>
         <td><img src="{{ instance.product.image_url }}" width="50" height="50"></td>
-        <td><a href="{% url 'scrape-product' instance.id %}">{{ instance.asin}}</a></td>
+        <td><a href="{% url 'scrape-product' instance.id %}">{{ instance.product.asin}}</a></td>
         <td>{{ instance.title}}</td>
         <td>{{ instance.price}}</td>
-        <td>{{ instance.keyword}}</td>
+        <td>{{ instance.product.keyword.keyword}}</td>
         <td>{{ instance.page}}</td>
         <td>{{ instance.position}}</td>
         <td>{{ instance.rating}}</td>

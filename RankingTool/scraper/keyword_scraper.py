@@ -56,7 +56,7 @@ def KeywordScrape(keyword):
 
     print("Retrieving data...")
 
-    for x in range(1, 6):
+    for x in range(1, 3):
         newUrl = "https://www.amazon.de/s?k=" + keyword.replace(" ", "+") + "&page=" + str(x)
         pages.append(newUrl)
     #print(pages)
@@ -92,14 +92,19 @@ def KeywordScrape(keyword):
 
         for r in result:
             newScrapeProduct = ScrapeProduct()
-            newProduct = Product()
             
+            
+            try:
+                new_asin = r.get("data-asin")
+            except:
+                new_asin = "NoData"
+
 
             try:
-                newProduct.asin = r.get("data-asin")
+                newProduct = Product.objects.get(asin=new_asin)
             except:
-                newProduct.asin = "NoData"
-
+                newProduct = Product(asin=new_asin)
+            
             try:
                 newScrapeProduct.position = str(r.get("data-index"))
             except:
@@ -132,11 +137,11 @@ def KeywordScrape(keyword):
             
 
 
-            new_keyword = Keyword(keyword=keyword)
+            try:
+                new_keyword = Keyword.objects.get(keyword=keyword)
+            except:
+                new_keyword = Keyword(keyword=keyword)
             
-            
-            
-
             newProduct.keyword = new_keyword
             new_keyword.save()
             newScrapeProduct.product = newProduct
