@@ -25,7 +25,7 @@
           <tbody>
             {% for instance in products %}
             
-              {% if instance.tracked_product == True %}
+              
               <tr>
                 <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
                 <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
@@ -35,12 +35,10 @@
                   {% for keyword in instance.keyword.all  %}
                     <li>
                       <div class="row mb-1">
-                        <div class="col-4">
+                        <div class="col">
                           {{ keyword }}
                         </div>
-                        <div class="col">
-                          <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' keyword %}">Scrape</a>
-                        </div>
+                        
                       </div>
                        
                     
@@ -55,7 +53,7 @@
                   <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' instance.keyword %}">Scrape</a>
                 </td>
               </tr>
-              {% endif %}
+              
               
             
             

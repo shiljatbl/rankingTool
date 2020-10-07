@@ -26,9 +26,20 @@
                         <h3>
                             <ul>
                             
-                            {% for keyword in keyword_list  %}
-                                <li>{{ keyword.keyword }}</li>
-                            {% endfor %}
+                                {% for keyword in product.keyword.all  %}
+                                <li>
+                                  <div class="row mb-1">
+                                    <div class="col-4">
+                                      {{ keyword }}
+                                    </div>
+                                    <div class="col">
+                                      <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' keyword %}">Scrape</a>
+                                    </div>
+                                  </div>
+                                   
+                                
+                                </li>
+                              {% endfor %}
                                 
                             </ul> 
                         </h3>
