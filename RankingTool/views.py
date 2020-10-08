@@ -60,8 +60,8 @@ def scraper_keyword(request, keyword):
     
    
 def product_list_view(request):
-    products = Product.objects.all()
-    #products = Product.objects.filter(tracked_product=True)
+    #products = Product.objects.all()
+    products = Product.objects.filter(tracked_product=True)
     context = {
         'products': products
     }
