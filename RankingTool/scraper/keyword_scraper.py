@@ -10,6 +10,8 @@ import datetime
 
 def KeywordScrape(keyword):
     
+    crawl = Crawl.objects.create()
+
     #inicijalizacija liste proizvoda
     productList = []
 
