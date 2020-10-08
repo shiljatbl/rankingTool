@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Please enter a keyword:</h2>
-<form method="POST" action="/keyword/">
+<form method="POST" action="/keyword/scrape/">
     {% csrf_token %}
     <input type="text" name="keyword" placeholder="Enter keywords...">
     <input type="submit" value="Scrape">

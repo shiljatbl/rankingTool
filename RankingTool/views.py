@@ -164,5 +164,62 @@ class ScrapeProductDeleteView(DeleteView):
 
 
 
+# Keyword Views
 
+def keyword_list_view(request):
+    #products = Product.objects.all()
+    keywords = Keyword.objects.all()
+    context = {
+        'keywords': keywords
+    }
+
+    return render(request, "keyword/keyword_list.html", context)
+
+
+class KeywordCreateView(CreateView):
+    form_class = KeywordForm
+    queryset = Keyword.objects.all()
+    template_name = 'keyword/keyword_create.html'
+
+def keyword_detail(request, id):
+    
+    keyword = get_object_or_404(Keyword, pk=id)
+    
+    
+    
+    scraped_data = ScrapeProduct.objects.filter(keyword__pk=id).order_by('-date')
+
+    if len(scraped_data) == 0:
+        keyword_image_url = "-"
+    else:
+        keyword_image_url = scraped_data[len(scraped_data)-1].product.image_url
+
+    context = {
+        'keyword': keyword,
+        'scraped_data': scraped_data,
+        'image_url': keyword_image_url,
+        
+        
+    }
+    return render(request, 'keyword/keyword_detail.html', context)
+
+class KeywordUpdateView(UpdateView):
+    template_name = 'keyword/keyword_create.html'
+    form_class = KeywordForm
+    queryset = Keyword.objects.all()
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Keyword, id=id_)
+
+
+class KeywordDeleteView(DeleteView):
+    template_name = 'keyword/keyword_delete.html'
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Keyword, id=id_)
+
+    def get_success_url(self):
+        return reverse('keyword-list')
 

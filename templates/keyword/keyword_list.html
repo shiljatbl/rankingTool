@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a class="btn btn-primary" href="{% url 'keyword-create' %}">Create New Item</a>
+
+<hr>
+
+<div class="row">
+  <div class="col-7">
+    <div class="card shadow">
+      <div class="card-body">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              
+              <th scope="col">Keyword</th>
+              <th scope="col">Latest data scrape</th>
+              <th scope="col"></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for keyword in keywords %}
+            
+              
+              <tr>
+                
+                <td><a href="{% url 'keyword-detail' keyword.id %}">{{ keyword.keyword}}</a></td>
+                
+                <td></td>
+                
+                  
+                  
+                  
+              </tr>
+              
+              
+            
+            
+            
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

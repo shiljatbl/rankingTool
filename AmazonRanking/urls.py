@@ -21,6 +21,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView, product_detail, product_list_view
 from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
+from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view
 
 urlpatterns = [
     path('', views.home_view, name="home"),
@@ -32,14 +33,23 @@ urlpatterns = [
     path('product/', rankingToolViews.product_list_view, name="product-list"),
     path('product/<int:id>/update/', ProductUpdateView.as_view(), name="product-update"),
     path('product2/<int:id>', rankingToolViews.product_detail, name="product2"),
-    path('keyword/', rankingToolViews.scraper_home, name="keyword"),
-    path('keyword/<str:keyword>', rankingToolViews.scraper_keyword, name="scraper-keyword"),
+    
+    path('keyword/scrape/', rankingToolViews.scraper_home, name="scraper-keyword-home"),
+    path('keyword/scrape/<str:keyword>', rankingToolViews.scraper_keyword, name="scraper-keyword"),
+    
     path('scrape-product/<int:id>', ScrapeProductDetailView.as_view(), name="scrape-product"),
     path('scrape-product/create/', ScrapeProductCreateView.as_view(), name="scrape-product-create"),
     path('scrape-product/<int:id>/delete/', ScrapeProductDeleteView.as_view(), name="scrape-product-delete"),
     path('scrape-product/', ScrapeProductsView.as_view(), name="scrape-product-list"),
     path('scrape-product/<int:id>/update/', ScrapeProductUpdateView.as_view(), name="scrape-product-update"),
     #path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
+
+    path('keyword/', keyword_list_view, name="keyword-list"),
+    path('keyword/<int:id>', keyword_detail, name="keyword-detail"),
+    path('keyword/create/', KeywordCreateView.as_view(), name="keyword-create"),
+    path('keyword/<int:id>/delete/', KeywordDeleteView.as_view(), name="keyword-delete"),
+    path('keyword/<int:id>/update/', KeywordUpdateView.as_view(), name="keyword-update"),
+
     
     
 ]

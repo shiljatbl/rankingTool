@@ -2,9 +2,9 @@
 
 {% block content%}
 
-<a class="btn btn-secondary" href="{% url 'product-list' %}">Back to List</a>
-<a class="btn btn-primary" href="{% url 'product-update' product.id %}">Edit</a>
-<a class="btn btn-danger" href="{% url 'product-delete' product.id %}">Delete</a>
+<a class="btn btn-secondary" href="{% url 'keyword-list' %}">Back to List</a>
+<a class="btn btn-primary" href="{% url 'keyword-update' keyword.id %}">Edit</a>
+<a class="btn btn-danger" href="{% url 'keyword-delete' keyword.id %}">Delete</a>
 <hr>
 <div class="row">
     <div class="col">
@@ -12,37 +12,18 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-2">
-                        <img src="{{ product.image_url }}" width="200" height="200">
+                        <img src="{{ image_url }}" width="200" height="200">
                     </div>
 
                     <div class="col-2">
-                        <h3>SKU:</h3>
-                        <h3>ASIN:</h3>
-                        <h3>Keywords:</h3>
+                        <h3>Search Terms:</h3>
                     </div>
 
                     <div class="col-4">
-                        <h3>{{ product.sku }}</h3>
-                        <h3>{{ product.asin }}</h3>
+                        <h3>{{ keyword.keyword }}</h3>
+                        
                         <h3>
-                            <ul>
                             
-                                {% for keyword in product.keyword.all  %}
-                                <li>
-                                  <div class="row mb-1">
-                                    <div class="col-4">
-                                      {{ keyword }}
-                                    </div>
-                                    <div class="col">
-                                      <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' keyword %}">Scrape</a>
-                                    </div>
-                                  </div>
-                                   
-                                
-                                </li>
-                              {% endfor %}
-                                
-                            </ul> 
                         </h3>
                     </div>
 

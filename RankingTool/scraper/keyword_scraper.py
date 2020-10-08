@@ -66,8 +66,9 @@ def KeywordScrape(keyword):
         result = soup.find_all("div", {"data-component-type": item_tag })
         page_position = 1
         for r in result:
-            amazon_ad = r.get('class')[7]
-            if not amazon_ad == 'AdHolder':
+            # in the search result div the class named "AdHolder" is used for sponsored products
+            amazon_ad = r.get('class')
+            if not 'AdHolder' in amazon_ad:
                 newScrapeProduct = ScrapeProduct()
                 try:
                     new_asin = r.get("data-asin")
@@ -90,7 +91,7 @@ def KeywordScrape(keyword):
                     newScrapeProduct.page = 999
                 
                 try:
-                    newScrapeProduct.title = r.find("span", {"class": "a-size-base-plus a-color-base a-text-normal"}).get_text()
+                    newScrapeProduct.title = r.find("span", {"class": "a-text-normal"}).get_text()
                 except:
                     newScrapeProduct.title = "NoData"
                 

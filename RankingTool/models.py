@@ -8,7 +8,8 @@ class Keyword(models.Model):
     
     def __str__(self):
         return self.keyword
-
+    def get_absolute_url(self): # new
+        return reverse('keyword-detail', args=[str(self.id)])
 
 class Product(models.Model):
     asin = models.CharField(max_length=10, default="")
