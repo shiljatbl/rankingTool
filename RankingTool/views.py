@@ -20,6 +20,7 @@ def scraper(request, keyword):
 
 def scraper_home(request):
     
+    
     context = {}
 
     if request.method == 'POST':
