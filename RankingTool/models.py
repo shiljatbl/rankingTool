@@ -10,16 +10,16 @@ class Keyword(models.Model):
         return self.keyword
     def get_absolute_url(self): # new
         return reverse('keyword-detail', args=[str(self.id)])
+    
     @property
     def latest_update(self):
         
         try:
-            latest_scrape = ScrapeProduct.objects.filter(product__keyword=self.keyword).order_by('-date')[0]
-            latest_date = latest_scrape.date
+            latest_crawl_date = KeywordCrawl.objects.filter(keyword__keyword=self.keyword).order_by('-date')[0].date
         except:
-            latest_date = 0
+            latest_crawl_date = 0
         
-        return latest_date
+        return latest_crawl_date
 
 
 
@@ -34,8 +34,7 @@ class Product(models.Model):
     def latest_update(self):
         
         try:
-            latest_scrape = ScrapeProduct.objects.filter(product__asin=self.asin).order_by('-date')[0]
-            latest_date = latest_scrape.date
+            latest_date = ScrapeProduct.objects.filter(product__asin=self.asin).order_by('-date')[0].date
         except:
             latest_date = 0
         

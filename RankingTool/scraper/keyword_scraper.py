@@ -10,7 +10,9 @@ import datetime
 
 def KeywordScrape(keyword):
     
-    #crawl = KeywordCrawl.objects.create()
+    
+
+    
 
     #inicijalizacija liste proizvoda
     productList = []
@@ -54,6 +56,17 @@ def KeywordScrape(keyword):
     print("Retrieving data for " + keyword + "...")
 
     print("Retrieving data...")
+
+    try:
+        crawl_keyword = Keyword.objects.get(keyword=keyword)
+                    
+    except:
+        crawl_keyword = Keyword(keyword=keyword)
+        crawl_keyword.save()
+    
+    crawl = KeywordCrawl.objects.create( date=datetime.datetime.now(), keyword=crawl_keyword)
+
+
 
     for page in range(1, 3):
         newUrl = "https://www.amazon.de/s?k=" + keyword.replace(" ", "+") + "&page=" + str(page)
@@ -129,6 +142,10 @@ def KeywordScrape(keyword):
                 newScrapeProduct.product = newProduct
                 newProduct.save()
                 newScrapeProduct.save()
+                
+                
+                
+                crawl.products.add(newScrapeProduct)
                 productList.append(newScrapeProduct)
                 page_position += 1
         pageCounter += 1

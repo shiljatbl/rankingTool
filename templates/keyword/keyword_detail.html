@@ -49,24 +49,13 @@
                             <th>
                                 Keyword
                             </th>
-                            <th>
-                                Page
-                            </th>
-                            <th>
-                                Position
-                            </th>
-                            <th>
-                                Price
-                            </th>
+                            
                         </tr>
-                        {% for scrapedProduct in scraped_data  %}
+                        {% for crawl in crawls %}
                         <tr>
-                            <td>{{ scrapedProduct.date }}</td>
-                            <td>{{ scrapedProduct.keyword }}</td>
-                            <td>{{ scrapedProduct.page }}</td>
-                            <td>{{ scrapedProduct.position }}</td>
-                            <td>{{ scrapedProduct.price }}</td>
-
+                            <td><a href="{% url 'crawl-detail' crawl.id %}">{{ crawl.date }}</a></td>
+                            <td>{{ crawl.keyword }}</td>
+                            
                         </tr>
                         {% endfor %}
                         

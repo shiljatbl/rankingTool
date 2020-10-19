@@ -170,6 +170,7 @@ class ScrapeProductDeleteView(DeleteView):
 def keyword_list_view(request):
     #products = Product.objects.all()
     keywords = Keyword.objects.all()
+    
     context = {
         'keywords': keywords
     }
@@ -187,7 +188,7 @@ def keyword_detail(request, id):
     keyword = get_object_or_404(Keyword, pk=id)
     
     
-    
+    crawls = KeywordCrawl.objects.filter(keyword__pk=id).order_by('-date')
     scraped_data = ScrapeProduct.objects.filter(keyword__pk=id).order_by('-date')
 
     if len(scraped_data) == 0:
@@ -199,6 +200,7 @@ def keyword_detail(request, id):
         'keyword': keyword,
         'scraped_data': scraped_data,
         'image_url': keyword_image_url,
+        'crawls': crawls,
         
         
     }
@@ -243,10 +245,13 @@ def crawl_list_view(request):
 def crawl_detail(request, id):
     
     crawl = get_object_or_404(KeywordCrawl, pk=id)
+    products = crawl.products.all()
+
     
+
     context = {
         'crawl': crawl,
-        
+        'products': products
         
         
     }
