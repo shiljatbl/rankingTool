@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Product, ScrapeProduct, Keyword
+from .models import Product, ScrapeProduct, Keyword, KeywordCrawl
 from .forms import ProductForm, KeywordForm, ScrapeProductForm
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse
@@ -223,4 +223,44 @@ class KeywordDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('keyword-list')
+
+
+
+# Crawl Views
+
+def crawl_list_view(request):
+    
+    crawls = KeywordCrawl.objects.all()
+    context = {
+        'crawls': crawls
+    }
+
+    return render(request, "crawl/crawl_list.html", context)
+
+
+
+
+def crawl_detail(request, id):
+    
+    crawl = get_object_or_404(KeywordCrawl, pk=id)
+    
+    context = {
+        'crawl': crawl,
+        
+        
+        
+    }
+    return render(request, 'crawl/crawl_detail.html', context)
+
+
+
+class CrawlDeleteView(DeleteView):
+    template_name = 'crawl/crawl_delete.html'
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(KeywordCrawl, id=id_)
+
+    def get_success_url(self):
+        return reverse('crawl-list')
 

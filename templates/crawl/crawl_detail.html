@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+<a class="btn btn-secondary" href="{% url 'crawl-list' %}">Back to List</a>
+<a class="btn btn-danger" href="{% url 'crawl-delete' crawl.id %}">Delete</a>
+<hr>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    
+
+                    <div class="col-2">
+                        <h3>Search Terms:</h3>
+                    </div>
+
+                    <div class="col-4">
+                        <h3>{{ crawl.keyword }}</h3>
+                        
+                        <h3>
+                            
+                        </h3>
+                    </div>
+
+                    
+
+
+                </div>
+                
+                
+            </div>
+
+        </div>
+
+        
+
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock content%}

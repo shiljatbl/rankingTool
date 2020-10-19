@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<hr>
+
+<div class="row">
+  <div class="col-7">
+    <div class="card shadow">
+      <div class="card-body">
+        <table class="table table-responsive">
+          <thead>
+            <tr>
+              
+              <th scope="col">Crawl</th>
+              <th scope="col">Date</th>
+              <th scope="col"></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for crawl in crawls %}
+            
+              
+              <tr>
+                
+                <td><a href="{% url 'crawl-detail' crawl.id %}">{{ crawl.keyword}}</a></td>
+                
+                <td>{{ crawl.date}}</td>
+                
+                  
+                  
+                  
+              </tr>
+              
+              
+            
+            
+            
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -22,6 +22,9 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView, product_detail, product_list_view
 from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
 from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view
+from RankingTool.views import CrawlDeleteView, crawl_detail, crawl_list_view
+
+
 
 urlpatterns = [
     path('', views.home_view, name="home"),
@@ -49,6 +52,11 @@ urlpatterns = [
     path('keyword/create/', KeywordCreateView.as_view(), name="keyword-create"),
     path('keyword/<int:id>/delete/', KeywordDeleteView.as_view(), name="keyword-delete"),
     path('keyword/<int:id>/update/', KeywordUpdateView.as_view(), name="keyword-update"),
+
+    path('crawl/', crawl_list_view, name="crawl-list"),
+    path('crawl/<int:id>', crawl_detail, name="crawl-detail"),
+    path('crawl/<int:id>/delete/', CrawlDeleteView.as_view(), name="crawl-delete"),
+    
 
     
     

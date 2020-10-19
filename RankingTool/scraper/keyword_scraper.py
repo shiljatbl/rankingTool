@@ -2,7 +2,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import time
-from RankingTool.models import Product, ScrapeProduct, Keyword
+from RankingTool.models import Product, ScrapeProduct, Keyword, KeywordCrawl
 from selenium.webdriver.common.keys import Keys
 import django
 from decimal import Decimal
@@ -10,7 +10,7 @@ import datetime
 
 def KeywordScrape(keyword):
     
-    crawl = Crawl.objects.create()
+    #crawl = KeywordCrawl.objects.create()
 
     #inicijalizacija liste proizvoda
     productList = []
