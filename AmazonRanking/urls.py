@@ -19,7 +19,7 @@ from pages import views
 from RankingTool import views as rankingToolViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView, product_detail, product_list_view
+from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView, product_detail, product_list_view, tracked_product_list_view
 from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
 from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view
 from RankingTool.views import CrawlDeleteView, crawl_detail, crawl_list_view
@@ -36,6 +36,7 @@ urlpatterns = [
     path('product/', rankingToolViews.product_list_view, name="product-list"),
     path('product/<int:id>/update/', ProductUpdateView.as_view(), name="product-update"),
     path('product2/<int:id>', rankingToolViews.product_detail, name="product2"),
+    path('product/tracked/', rankingToolViews.tracked_product_list_view, name="tracked-product-list"),
     
     path('keyword/scrape/', rankingToolViews.scraper_home, name="scraper-keyword-home"),
     path('keyword/scrape/<str:keyword>', rankingToolViews.scraper_keyword, name="scraper-keyword"),

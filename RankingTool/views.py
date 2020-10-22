@@ -8,6 +8,9 @@ from .scraper.product_scraper import ProductScraper
 from .scraper.keyword_scraper import KeywordScrape
 from decimal import Decimal
 from django.http import Http404
+from django.core.paginator import Paginator
+
+
 
 def scraper(request, keyword):
     
@@ -61,10 +64,29 @@ def scraper_keyword(request, keyword):
     
    
 def product_list_view(request):
+    products = Product.objects.all()
+    paginator = Paginator(products, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
+    context = {
+        'products': products,
+        'page_obj': page_obj
+    }
+
+    return render(request, "product/product_list.html", context)
+
+
+def tracked_product_list_view(request):
     #products = Product.objects.all()
     products = Product.objects.filter(tracked_product=True)
+    paginator = Paginator(products, 8)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
-        'products': products
+        'products': products,
+        'page_obj': page_obj
     }
 
     return render(request, "product/product_list.html", context)
@@ -169,7 +191,7 @@ class ScrapeProductDeleteView(DeleteView):
 
 def keyword_list_view(request):
     #products = Product.objects.all()
-    keywords = Keyword.objects.all()
+    keywords = Keyword.objects.all().order_by('-keyword')
     
     context = {
         'keywords': keywords
@@ -232,7 +254,7 @@ class KeywordDeleteView(DeleteView):
 
 def crawl_list_view(request):
     
-    crawls = KeywordCrawl.objects.all()
+    crawls = KeywordCrawl.objects.all().order_by('-date')
     context = {
         'crawls': crawls
     }

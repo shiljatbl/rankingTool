@@ -7,7 +7,7 @@
 <hr>
 
 <div class="row">
-  <div class="col-7">
+  <div class="col-4">
     <div class="card shadow">
       <div class="card-body">
         <table class="table table-responsive">
@@ -16,7 +16,7 @@
               
               <th scope="col">Keyword</th>
               <th scope="col">Latest data scrape</th>
-              <th scope="col"></th>
+              <th scope="col">No of Crawls</th>
               
             </tr>
           </thead>
@@ -30,7 +30,7 @@
                 
                 <td>{{ keyword.latest_update}}</td>
                 
-                  
+                <td style="text-align: center;">{{ keyword.no_of_crawls }}</td>
                   
                   
               </tr>

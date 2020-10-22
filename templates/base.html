@@ -69,10 +69,21 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'product-list' %}">
+      
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-box-open"></i>
-          <span>Products</span></a>
+          <span>Products</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Products:</h6>
+            <a class="collapse-item" href="{% url 'tracked-product-list' %}">Tracked Products</a>
+            <a class="collapse-item" href="{% url 'product-list' %}">All Products</a>
+          </div>
+        </div>
       </li>
       
       <!-- Divider -->

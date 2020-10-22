@@ -21,6 +21,16 @@ class Keyword(models.Model):
         
         return latest_crawl_date
 
+    @property
+    def no_of_crawls(self):
+        
+        try:
+            crawls = len(KeywordCrawl.objects.filter(keyword__keyword=self.keyword))
+        except:
+            crawls = 0
+        
+        return crawls
+
 
 
 class Product(models.Model):
