@@ -33,6 +33,7 @@
               
               <th scope="col">Keywords</th>
               <th scope="col">Date</th>
+              <th scope="col">Marketplace</th>
               <th scope="col"></th>
               
             </tr>
@@ -46,6 +47,7 @@
                 <td><a href="{% url 'crawl-detail' crawl.id %}">{{ crawl.keyword}}</a></td>
                 
                 <td>{{ crawl.date}}</td>
+                <td>{{ crawl.marketplace.name}}</td>
                 
                   
                   

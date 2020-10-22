@@ -68,7 +68,7 @@ class ScrapeProduct(models.Model):
     page = models.IntegerField(default=0)
     rating = models.DecimalField(default=0, max_digits=2, decimal_places=1)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=2)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(default=datetime.now)
     
     def __str__(self):
         return self.product.asin
@@ -76,14 +76,25 @@ class ScrapeProduct(models.Model):
     def get_absolute_url(self): # new
         return reverse('scrape-product', args=[str(self.id)])
 
+class Marketplace(models.Model):
+    name = models.CharField(max_length=20)
+    url = models.CharField(max_length=200)
+    country = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
 
 class KeywordCrawl(models.Model):
     keyword = models.ForeignKey(Keyword,default=None, on_delete= models.CASCADE)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(default=datetime.now)
     products = models.ManyToManyField(ScrapeProduct)
+    marketplace = models.ForeignKey(Marketplace, default=None, on_delete= models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.keyword.keyword + " - " + str(self.date)
 
     def get_absolute_url(self): # new
         return reverse('keyword-crawl-detail', args=[str(self.id)])
+
+

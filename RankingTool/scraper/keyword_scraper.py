@@ -2,7 +2,7 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import time
-from RankingTool.models import Product, ScrapeProduct, Keyword, KeywordCrawl
+from RankingTool.models import Product, ScrapeProduct, Keyword, KeywordCrawl, Marketplace
 from selenium.webdriver.common.keys import Keys
 import django
 from decimal import Decimal
@@ -65,9 +65,8 @@ def KeywordScrape(keyword):
         crawl_keyword.save()
     
     crawl = KeywordCrawl.objects.create( date=datetime.datetime.now(), keyword=crawl_keyword)
-
-
-
+    crawl.marketplace = Marketplace.objects.get(name="Amazon.de")
+    
     for page in range(1, 3):
         newUrl = "https://www.amazon.de/s?k=" + keyword.replace(" ", "+") + "&page=" + str(page)
         pages.append(newUrl)
