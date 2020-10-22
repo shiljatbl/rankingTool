@@ -2,7 +2,15 @@
 
 {% block content%}
 
-<a class="btn btn-secondary" href="{% url 'product-list' %}">Back to List</a>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>
+
+
+
+<button class="btn btn-secondary" onclick="goBack()">Back to List</button>
 <a class="btn btn-primary" href="{% url 'product-update' product.id %}">Edit</a>
 <a class="btn btn-danger" href="{% url 'product-delete' product.id %}">Delete</a>
 <hr>
@@ -23,14 +31,14 @@
 
                     <div class="col-4">
                         <h3>{{ product.sku }}</h3>
-                        <h3>{{ product.asin }}</h3>
+                        <h3><a href="https://www.amazon.de/dp/{{product.asin}}" target="_blank">{{ product.asin }}</a></h3>
                         <h3>
                             <ul>
                             
                                 {% for keyword in product.keyword.all  %}
                                 <li>
                                   <div class="row mb-1">
-                                    <div class="col-4">
+                                    <div class="col-5">
                                       {{ keyword }}
                                     </div>
                                     <div class="col">
@@ -56,49 +64,7 @@
 
         </div>
 
-        <div class="card mt-3">
-            <div class="card-body">
-                <div class="row">
-                    
-                    <table class="table table-responsive table-striped">
-                        <tr>
-                            <th>
-                                Date
-                            </th>
-                            <th>
-                                Keyword
-                            </th>
-                            <th>
-                                Page
-                            </th>
-                            <th>
-                                Position
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                        </tr>
-                        {% for scrapedProduct in scraped_data  %}
-                        <tr>
-                            <td>{{ scrapedProduct.date }}</td>
-                            <td>{{ scrapedProduct.keyword }}</td>
-                            <td>{{ scrapedProduct.page }}</td>
-                            <td>{{ scrapedProduct.position }}</td>
-                            <td>{{ scrapedProduct.price }}</td>
-
-                        </tr>
-                        {% endfor %}
-                        
-
-                </table>
-
-
-                </div>
-                
-                
-            </div>
-
-        </div>
+        
 
 
     </div>
@@ -106,6 +72,52 @@
 
 </div>
 
+<div class="row">
+<div class="col-7">
+    <div class="card mt-2" style="text-align: center;">
+        <div class="card-body">
+            
+                
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Keyword
+                        </th>
+                        <th>
+                            Page
+                        </th>
+                        <th>
+                            Position
+                        </th>
+                        <th>
+                            Price
+                        </th>
+                    </tr>
+                    {% for scrapedProduct in scraped_data  %}
+                    <tr>
+                        <td>{{ scrapedProduct.date }}</td>
+                        <td>{{ scrapedProduct.keyword }}</td>
+                        <td>{{ scrapedProduct.page }}</td>
+                        <td>{{ scrapedProduct.position }}</td>
+                        <td>{{ scrapedProduct.price }}</td>
 
+                    </tr>
+                    {% endfor %}
+                    
+
+            </table>
+
+
+            
+            
+            
+        </div>
+
+    </div>
+</div>
+</div>
 
 {% endblock content%}

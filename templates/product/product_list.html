@@ -29,7 +29,7 @@
               <tr>
                 <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
                 <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
-                <td>{{ instance.asin}}</td>
+                <td><a href="https://www.amazon.de/dp/{{ instance.asin }}" target="_blank">{{ instance.asin }}</a></td>
                 <td>
                   <ul>
                   {% for keyword in instance.keyword.all  %}

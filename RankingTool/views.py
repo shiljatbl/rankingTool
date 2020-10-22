@@ -116,7 +116,7 @@ def product_detail(request, id):
     
     
     scraped_data = ScrapeProduct.objects.filter(product__pk=id).order_by('-date')
-
+    
     context = {
         'product': product,
         'scraped_data': scraped_data,

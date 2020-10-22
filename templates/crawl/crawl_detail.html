@@ -14,52 +14,25 @@ function goBack() {
 <a class="btn btn-danger" href="{% url 'crawl-delete' crawl.id %}">Delete</a>
 <hr>
 <div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    
+    <div class="col-">
+        <div class="card mb-2 shadow">
+            <div class="card-body">    
+                <table class="table table-bodered">
+                    <tr>
+                        <th style="text-align: right;">Search Terms:</th>
+                        <td>{{ crawl.keyword }}</td>
+                    </tr>
 
-                    <div class="col-2">
-                        <h3>Search Terms:</h3>
-                    </div>
-
-                    <div class="col-4">
-                        <h3>{{ crawl.keyword }}</h3>
-                        
-                        <h3>
-                            
-                        </h3>
-                    </div>
-
-                    
+                    <tr>
+                        <th style="text-align: right;">Date:</th>
+                        <td>{{ crawl.date }}</td>
+                    </tr>
 
 
-                </div>
-
-                <div class="row">
-                    
-
-                    <div class="col-2">
-                        <h3>Date:</h3>
-                    </div>
-
-                    <div class="col-4">
-                        <h3>{{ crawl.date }}</h3>
-                        
-                        <h3>
-                            
-                        </h3>
-                    </div>
-
-                    
-
-
-                </div>
+                </table>
                 
-                
+               
             </div>
-
         </div>
 
         
@@ -72,7 +45,7 @@ function goBack() {
 
 <div class="row">
     <div class="col">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-body">
                 <table class="table">
                     <thead>
@@ -92,8 +65,8 @@ function goBack() {
                     <tbody>
                       {% for instance in products %}
                       <tr>
-                        <td><img src="{{ instance.product.image_url }}" width="50" height="50"></td>
-                        <td>{{ instance.product.asin}}</td>
+                        <td><img src="{{ instance.product.image_url }}" width="40%" height="auto"></td>
+                        <td><a href="https://www.amazon.de/dp/{{ instance.product.asin }}" target="_blank">{{ instance.product.asin }}</a></td>
                         <td>{{ instance.title}}</td>
                         <td>{{ instance.price}}</td>
                         <td>{{ instance.page}}</td>
