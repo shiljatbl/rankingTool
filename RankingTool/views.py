@@ -9,7 +9,7 @@ from .scraper.keyword_scraper import KeywordScrape
 from decimal import Decimal
 from django.http import Http404
 from django.core.paginator import Paginator
-
+import csv
 
 
 def scraper(request, keyword):
@@ -291,3 +291,39 @@ class CrawlDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('crawl-list')
 
+
+def crawl_download(request):
+
+    
+    crawls = KeywordCrawl.objects.all()
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="downloadTest.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+
+    writer.writerow(['keyword', 'marketplace', 'date', 'asin', 'title', 'price', 'page', 'position', 'rating', 'image_url'])
+
+    for crawl in crawls:
+        
+        for scraped_product in crawl.products.all():
+            writer.writerow([crawl.keyword.keyword, crawl.marketplace.name, crawl.date, scraped_product.product.asin, scraped_product.title, scraped_product.price, scraped_product.page, scraped_product.position, scraped_product.rating, scraped_product.product.image_url])
+
+    return response
+
+def crawl_single_download(request, id):
+
+    crawl = get_object_or_404(KeywordCrawl, pk=id)
+
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="' + crawl.keyword.keyword + "-" + str(crawl.date) + '.csv"'
+
+    writer = csv.writer(response, delimiter=',')
+
+    writer.writerow(['keyword', 'marketplace', 'date', 'asin', 'title', 'price', 'page', 'position', 'rating', 'image_url'])
+
+    for scraped_product in crawl.products.all():
+        writer.writerow([crawl.keyword.keyword, crawl.marketplace.name, crawl.date, scraped_product.product.asin, scraped_product.title, scraped_product.price, scraped_product.page, scraped_product.position, scraped_product.rating, scraped_product.product.image_url])
+
+    return response

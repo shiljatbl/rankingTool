@@ -23,7 +23,7 @@ from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView
 from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
 from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view
 from RankingTool.views import CrawlDeleteView, crawl_detail, crawl_list_view
-
+from RankingTool.views import crawl_download, crawl_single_download
 
 
 urlpatterns = [
@@ -58,7 +58,8 @@ urlpatterns = [
     path('crawl/<int:id>', crawl_detail, name="crawl-detail"),
     path('crawl/<int:id>/delete/', CrawlDeleteView.as_view(), name="crawl-delete"),
     
-
+    path('download-csv/', crawl_download, name='download'),
+    path('download-csv/<int:id>', crawl_single_download, name='single-download'),
     
     
 ]
