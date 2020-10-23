@@ -24,6 +24,7 @@ from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, Scrap
 from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view
 from RankingTool.views import CrawlDeleteView, crawl_detail, crawl_list_view
 from RankingTool.views import crawl_download, crawl_single_download
+from RankingTool.views import SettingsUpdateView, scrape_all_keywords, delete_all_scrapeProducts
 
 
 urlpatterns = [
@@ -61,7 +62,11 @@ urlpatterns = [
     path('download-csv/', crawl_download, name='download'),
     path('download-csv/<int:id>', crawl_single_download, name='single-download'),
     
-    
+    path('settings/', SettingsUpdateView.as_view(), name='settings' ),
+
+    path('keyword-scrape/', scrape_all_keywords, name='scrape-all-keywords'),
+
+    path('delete/', delete_all_scrapeProducts, name='delete')
 ]
 
 urlpatterns += staticfiles_urlpatterns()

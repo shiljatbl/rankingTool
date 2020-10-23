@@ -98,3 +98,9 @@ class KeywordCrawl(models.Model):
         return reverse('keyword-crawl-detail', args=[str(self.id)])
 
 
+class Settings(models.Model):
+    zip_code = models.CharField(max_length=15)
+    no_of_pages = models.IntegerField(default=3)
+
+    def __str__(self):
+        return "settings"

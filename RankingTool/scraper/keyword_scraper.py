@@ -2,15 +2,17 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.chrome.options import Options
 import time
-from RankingTool.models import Product, ScrapeProduct, Keyword, KeywordCrawl, Marketplace
+from RankingTool.models import Product, ScrapeProduct, Keyword, KeywordCrawl, Marketplace, Settings
 from selenium.webdriver.common.keys import Keys
 import django
 from decimal import Decimal
 import datetime
+from RankingTool.scraper.geo_setup import geo_setup
+
 
 def KeywordScrape(keyword):
     
-    
+    crawler_settings = Settings.objects.all().first()
 
     
 
@@ -28,6 +30,8 @@ def KeywordScrape(keyword):
     options.add_argument('--disable-gpu')
     driver = webdriver.Chrome(chrome_options=options)
 
+
+    
     #zipCode = input("Please enter Zip Code:\n")
     time.sleep(1)
     urlSearch = "https://www.Amazon.de"
@@ -40,7 +44,7 @@ def KeywordScrape(keyword):
     time.sleep(1)
     textBox = driver.find_element_by_xpath('//*[@id="GLUXZipUpdateInput"]')
     #Unesi zeljeni ZIP
-    textBox.send_keys('21266')
+    textBox.send_keys(crawler_settings.zip_code)
     time.sleep(1)
     okButton = driver.find_element_by_xpath('//*[@id="GLUXZipUpdate"]/span/input')
     time.sleep(1)
@@ -49,6 +53,7 @@ def KeywordScrape(keyword):
     driver.get("https://www.amazon.de")
     print("Geolocation setup done.")
     time.sleep(1)
+        
         
     #.de za nemacku, .com za US
     urlSearch ="https://www.amazon.de/s?k="+keyword.replace(" ","+")+"&ref=nb_sb_noss_1"
@@ -67,7 +72,7 @@ def KeywordScrape(keyword):
     crawl = KeywordCrawl.objects.create( date=datetime.datetime.now(), keyword=crawl_keyword, marketplace=marketplace)
     
        
-    for page in range(1, 3):
+    for page in range(1, crawler_settings.no_of_pages + 1):
         newUrl = "https://www.amazon.de/s?k=" + keyword.replace(" ", "+") + "&page=" + str(page)
         pages.append(newUrl)
     
@@ -147,6 +152,7 @@ def KeywordScrape(keyword):
                 crawl.products.add(newScrapeProduct)
                 productList.append(newScrapeProduct)
                 page_position += 1
+        
         pageCounter += 1
 
     driver.close()

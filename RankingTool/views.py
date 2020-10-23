@@ -1,16 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Product, ScrapeProduct, Keyword, KeywordCrawl
-from .forms import ProductForm, KeywordForm, ScrapeProductForm
+from .models import Product, ScrapeProduct, Keyword, KeywordCrawl, Settings
+from .forms import ProductForm, KeywordForm, ScrapeProductForm, SettingsForm
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse
 from .scraper.product_scraper import ProductScraper 
 from .scraper.keyword_scraper import KeywordScrape
+from .scraper.multiple_keyword_scraper import KeywordScrapeMultiple
 from decimal import Decimal
 from django.http import Http404
 from django.core.paginator import Paginator
 import csv
-
+import codecs
 
 def scraper(request, keyword):
     
@@ -319,6 +320,7 @@ def crawl_single_download(request, id):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="' + crawl.keyword.keyword + "-" + str(crawl.date) + '.csv"'
 
+    response.write(codecs.BOM_UTF8)
     writer = csv.writer(response, delimiter=',')
 
     writer.writerow(['keyword', 'marketplace', 'date', 'asin', 'title', 'price', 'page', 'position', 'rating', 'image_url'])
@@ -327,3 +329,24 @@ def crawl_single_download(request, id):
         writer.writerow([crawl.keyword.keyword, crawl.marketplace.name, crawl.date, scraped_product.product.asin, scraped_product.title, scraped_product.price, scraped_product.page, scraped_product.position, scraped_product.rating, scraped_product.product.image_url])
 
     return response
+
+class SettingsUpdateView(UpdateView):
+    template_name = 'settings/settings_create.html'
+    form_class = SettingsForm
+    queryset = Settings.objects.all()
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Settings, id=id_)
+
+def scrape_all_keywords(response):
+    #keywords = Keyword.objects.all()
+    KeywordScrapeMultiple()
+
+    return redirect('/crawl/')
+
+def delete_all_scrapeProducts(response):
+
+    ScrapeProduct.objects.all().delete()
+
+    return redirect('/crawl/')

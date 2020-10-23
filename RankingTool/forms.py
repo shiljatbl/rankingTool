@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product, Keyword, ScrapeProduct
+from .models import Product, Keyword, ScrapeProduct, Settings
 
 
 class ProductForm(forms.ModelForm):
@@ -33,3 +33,12 @@ class ScrapeProductForm(forms.ModelForm):
             'date',
             'keyword'
         ]
+
+
+class SettingsForm(forms.ModelForm):
+    class Meta:
+        model = Settings
+        fields = [
+            'zip_code',
+            'no_of_pages'
+          ]
