@@ -77,7 +77,7 @@ function goBack() {
                     <tbody>
                       {% for instance in products %}
                       <tr>
-                        <td><img src="{{ instance.product.image_url }}" width="40%" height="auto"></td>
+                        <td><a href="{% url 'product' instance.product.id %}"><img src="{{ instance.product.image_url }}" width="40%" height="auto"></a></td>
                         <td><a href="https://www.amazon.de/dp/{{ instance.product.asin }}" target="_blank">{{ instance.product.asin }}</a></td>
                         <td>{{ instance.title}}</td>
                         <td>{{ instance.price}}</td>

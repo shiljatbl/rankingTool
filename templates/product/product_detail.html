@@ -16,7 +16,7 @@
 <hr>
 <div class="row">
     <div class="col">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="row">
                     <div class="col-2">
@@ -38,12 +38,10 @@
                                 {% for keyword in product.keyword.all  %}
                                 <li>
                                   <div class="row mb-1">
-                                    <div class="col-5">
-                                      {{ keyword }}
-                                    </div>
                                     <div class="col">
-                                      <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' keyword %}">Scrape</a>
+                                      {{ keyword }} <a class="btn btn-primary btn-sm" href="{% url 'scraper-keyword' keyword %}">Scrape</a>
                                     </div>
+                                 
                                   </div>
                                    
                                 
@@ -74,7 +72,7 @@
 
 <div class="row">
 <div class="col-7">
-    <div class="card mt-2" style="text-align: center;">
+    <div class="card mt-2 shadow" style="text-align: center;">
         <div class="card-body">
             
                 
