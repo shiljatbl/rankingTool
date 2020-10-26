@@ -27,7 +27,7 @@
             
               
               <tr>
-                <td><img src="{{ instance.image_url }}" width="50" height="50"></td>
+                <td><img src="{{ instance.image_url }}" width="50" height="auto"></td>
                 <td><a href="{% url 'product' instance.id %}">{{ instance.sku}}</a></td>
                 <td><a href="https://www.amazon.de/dp/{{ instance.asin }}" target="_blank">{{ instance.asin }}</a></td>
                 <td>

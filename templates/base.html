@@ -41,43 +41,13 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'scraper-keyword-home' %}">
-          <i class="fas fa-fw fa-spider"></i>
-          <span>Data Scraper</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'keyword-list' %}">
-          <i class="fas fa-fw fa-font"></i>
-          <span>Keywords</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'crawl-list' %}">
-          <i class="fas fa-fw fa-spider"></i>
-          <span>Crawl List</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      
-
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           <i class="fas fa-fw fa-box-open"></i>
           <span>Products</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Products:</h6>
             <a class="collapse-item" href="{% url 'tracked-product-list' %}">Tracked Products</a>
@@ -85,6 +55,32 @@
           </div>
         </div>
       </li>
+
+
+     
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-font"></i>
+          <span>Keywords</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Keywords:</h6>
+            <a class="collapse-item" href="{% url 'keyword-list' %}">Keywords</a>
+            <a class="collapse-item" href="{% url 'crawl-list' %}">Crawl List</a>
+          </div>
+        </div>
+      </li>
+
+      
+
+      
+
+      
 
       
 
