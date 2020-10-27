@@ -68,7 +68,7 @@ def KeywordScrape(keyword):
     except:
         crawl_keyword = Keyword(keyword=keyword)
         crawl_keyword.save()
-    marketplace = Marketplace.objects.get(name="Amazon.de")
+    marketplace = crawl_keyword.marketplace
     crawl = KeywordCrawl.objects.create( date=datetime.datetime.now(), keyword=crawl_keyword, marketplace=marketplace)
     
        

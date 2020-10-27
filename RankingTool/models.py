@@ -4,7 +4,7 @@ from datetime import datetime
 # Create your models here.
 
 class Marketplace(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     url = models.CharField(max_length=200)
     country = models.CharField(max_length=20)
 
@@ -13,7 +13,7 @@ class Marketplace(models.Model):
 
 
 class Keyword(models.Model):
-    keyword = models.CharField(max_length=200,default="")
+    keyword = models.CharField(max_length=200,default="", unique=True)
     marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE, default=None, null=True, blank=True)
     
     
@@ -45,11 +45,13 @@ class Keyword(models.Model):
 
 
 class Product(models.Model):
-    asin = models.CharField(max_length=10, default="")
+    asin = models.CharField(max_length=10, default="", unique=True)
     sku = models.CharField(max_length=200,default="")
     keyword = models.ManyToManyField(Keyword)
     image_url = models.CharField(max_length=200,default="")
     tracked_product = models.BooleanField(default=False)
+    
+    
     
     @property
     def latest_update(self):
