@@ -17,7 +17,8 @@ class KeywordForm(forms.ModelForm):
     class Meta:
         model = Keyword
         fields = [
-            'keyword'
+            'keyword',
+            'marketplace'
         ]
 
 class ScrapeProductForm(forms.ModelForm):

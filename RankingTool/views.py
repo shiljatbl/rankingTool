@@ -24,8 +24,19 @@ def scraper(request, keyword):
 
 def scraper_home(request):
     
-    
-    context = {}
+    no_of_keywords = len(Keyword.objects.all())
+    no_of_products = len(Product.objects.all())
+    no_of_tracked_products = len(Product.objects.filter(tracked_product=True))
+    no_of_scrapes = len(KeywordCrawl.objects.all())
+
+    context = {
+        'no_of_keywords': no_of_keywords,
+        'no_of_products': no_of_products,
+        'no_of_tracked_products': no_of_tracked_products,
+        'no_of_scrapes': no_of_scrapes
+    }
+
+
 
     if request.method == 'POST':
         keyword = request.POST.get('keyword')
@@ -201,6 +212,25 @@ def keyword_list_view(request):
     return render(request, "keyword/keyword_list.html", context)
 
 
+def keyword_list_amazon_de(request):
+    keywords = Keyword.objects.filter(marketplace__name='Amazon.de').order_by('-keyword')
+
+    context = {
+        'keywords': keywords
+    }
+
+    return render(request, "keyword/keyword_list.html", context)
+
+def keyword_list_amazon_uk(request):
+    keywords = Keyword.objects.filter(marketplace__name='Amazon.co.uk').order_by('-keyword')
+
+    context = {
+        'keywords': keywords
+    }
+
+    return render(request, "keyword/keyword_list.html", context)
+
+
 class KeywordCreateView(CreateView):
     form_class = KeywordForm
     queryset = Keyword.objects.all()
@@ -348,5 +378,9 @@ def scrape_all_keywords(response):
 def delete_all_scrapeProducts(response):
 
     ScrapeProduct.objects.all().delete()
+    Product.objects.all().delete()
+    Keyword.objects.all().delete()
+    KeywordCrawl.objects.all().delete()
+
 
     return redirect('/crawl/')

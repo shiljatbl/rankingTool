@@ -1,10 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Please enter a keyword:</h2>
-<form method="POST" action="/keyword/scrape/">
-    {% csrf_token %}
-    <input type="text" name="keyword" placeholder="Enter keywords...">
-    <input type="submit" value="Scrape">
-</form>
+
+
+
+<div class="row ">
+    <div class="col-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4>Current Data in database:</h4>
+                <h5> - Keywords in database: {{ no_of_keywords }}</h5>
+                <h5> - Number of Keyword scrapes: {{ no_of_scrapes }}</h5>
+                <h5> - Products in database: {{ no_of_products }}</h5>
+                <h5> - Tracked Products in database: {{ no_of_tracked_products }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-3">
+        <div class="card shadow">
+            <div class="card-body">
+                <h3>Please enter a keyword:</h3>
+                <form method="POST" action="/keyword/scrape/">
+                    {% csrf_token %}
+                    <input type="text" name="keyword" placeholder="Enter keywords...">
+                    <input type="submit" value="Scrape">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

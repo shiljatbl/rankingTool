@@ -17,6 +17,7 @@
             <tr>
               
               <th scope="col">Keyword</th>
+              <th scope="col">Marketplace</th>
               <th scope="col">Latest data scrape</th>
               <th scope="col">No of Crawls</th>
               
@@ -30,6 +31,8 @@
                 
                 <td><a href="{% url 'keyword-detail' keyword.id %}">{{ keyword.keyword}}</a></td>
                 
+                <td>{{ keyword.marketplace.name }}</td>
+
                 <td>{{ keyword.latest_update}}</td>
                 
                 <td style="text-align: center;">{{ keyword.no_of_crawls }}</td>

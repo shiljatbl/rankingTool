@@ -3,8 +3,19 @@ from django.urls import reverse
 from datetime import datetime
 # Create your models here.
 
+class Marketplace(models.Model):
+    name = models.CharField(max_length=20)
+    url = models.CharField(max_length=200)
+    country = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
 class Keyword(models.Model):
     keyword = models.CharField(max_length=200,default="")
+    marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE, default=None, null=True, blank=True)
+    
     
     def __str__(self):
         return self.keyword
@@ -76,13 +87,7 @@ class ScrapeProduct(models.Model):
     def get_absolute_url(self): # new
         return reverse('scrape-product', args=[str(self.id)])
 
-class Marketplace(models.Model):
-    name = models.CharField(max_length=20)
-    url = models.CharField(max_length=200)
-    country = models.CharField(max_length=20)
 
-    def __str__(self):
-        return self.name
 
 class KeywordCrawl(models.Model):
     keyword = models.ForeignKey(Keyword,default=None, on_delete= models.CASCADE)

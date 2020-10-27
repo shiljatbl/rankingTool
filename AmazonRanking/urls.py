@@ -15,20 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pages import views
 from RankingTool import views as rankingToolViews
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView, product_detail, product_list_view, tracked_product_list_view
 from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
-from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view
+from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view, keyword_list_amazon_de, keyword_list_amazon_uk
 from RankingTool.views import CrawlDeleteView, crawl_detail, crawl_list_view
 from RankingTool.views import crawl_download, crawl_single_download
 from RankingTool.views import SettingsUpdateView, scrape_all_keywords, delete_all_scrapeProducts
 
 
 urlpatterns = [
-    path('', views.home_view, name="home"),
+    
     path('admin/', admin.site.urls, name="admin"),
     #path('product/<int:id>', ProductDetailView.as_view(), name="product"),
     path('product/<int:id>', rankingToolViews.product_detail, name="product"),
@@ -50,6 +49,9 @@ urlpatterns = [
     #path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
 
     path('keyword/', keyword_list_view, name="keyword-list"),
+    path('keyword/de/', keyword_list_amazon_de, name="keyword-list-de"),
+    path('keyword/uk/', keyword_list_amazon_uk, name="keyword-list-de"),
+
     path('keyword/<int:id>', keyword_detail, name="keyword-detail"),
     path('keyword/create/', KeywordCreateView.as_view(), name="keyword-create"),
     path('keyword/<int:id>/delete/', KeywordDeleteView.as_view(), name="keyword-delete"),
@@ -66,7 +68,8 @@ urlpatterns = [
 
     path('keyword-scrape/', scrape_all_keywords, name='scrape-all-keywords'),
 
-    path('delete/', delete_all_scrapeProducts, name='delete')
+    path('delete/', delete_all_scrapeProducts, name='delete'),
+    path('', rankingToolViews.scraper_home, name="home")
 ]
 
 urlpatterns += staticfiles_urlpatterns()
