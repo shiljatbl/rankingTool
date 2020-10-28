@@ -221,8 +221,8 @@ def keyword_list_amazon_de(request):
 
     return render(request, "keyword/keyword_list.html", context)
 
-def keyword_list_amazon_uk(request):
-    keywords = Keyword.objects.filter(marketplace__name='Amazon.co.uk').order_by('-keyword')
+def keyword_list_amazon_fr(request):
+    keywords = Keyword.objects.filter(marketplace__name='Amazon.fr').order_by('-keyword')
 
     context = {
         'keywords': keywords
@@ -230,6 +230,23 @@ def keyword_list_amazon_uk(request):
 
     return render(request, "keyword/keyword_list.html", context)
 
+def keyword_list_amazon_it(request):
+    keywords = Keyword.objects.filter(marketplace__name='Amazon.fr').order_by('-keyword')
+
+    context = {
+        'keywords': keywords
+    }
+
+    return render(request, "keyword/keyword_list.html", context)
+
+def keyword_list_ebay_de(request):
+    keywords = Keyword.objects.filter(marketplace__name='eBay.de').order_by('-keyword')
+
+    context = {
+        'keywords': keywords
+    }
+
+    return render(request, "keyword/keyword_list.html", context)
 
 class KeywordCreateView(CreateView):
     form_class = KeywordForm

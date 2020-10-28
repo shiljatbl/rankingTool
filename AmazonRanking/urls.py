@@ -20,7 +20,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from RankingTool.views import ProductDeleteView, ProductsView, ProductCreateView, ProductDetailView, ProductUpdateView, product_detail, product_list_view, tracked_product_list_view
 from RankingTool.views import ScrapeProductDeleteView, ScrapeProductsView, ScrapeProductCreateView, ScrapeProductDetailView, ScrapeProductUpdateView
-from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view, keyword_list_amazon_de, keyword_list_amazon_uk
+from RankingTool.views import KeywordDeleteView, KeywordCreateView, keyword_detail, KeywordUpdateView, keyword_list_view, keyword_list_amazon_de, keyword_list_amazon_fr, keyword_list_amazon_it, keyword_list_ebay_de
 from RankingTool.views import CrawlDeleteView, crawl_detail, crawl_list_view
 from RankingTool.views import crawl_download, crawl_single_download
 from RankingTool.views import SettingsUpdateView, scrape_all_keywords, delete_all_scrapeProducts
@@ -49,8 +49,10 @@ urlpatterns = [
     #path('scraper/<str:asin>', rankingToolViews.scraper, name="scraper-product"),
 
     path('keyword/', keyword_list_view, name="keyword-list"),
-    path('keyword/de/', keyword_list_amazon_de, name="keyword-list-de"),
-    path('keyword/uk/', keyword_list_amazon_uk, name="keyword-list-de"),
+    path('keyword/amazon/de/', keyword_list_amazon_de, name="keyword-list-de"),
+    path('keyword/amazon/fr/', keyword_list_amazon_fr, name="keyword-list-fr"),
+    path('keyword/amazon/it/', keyword_list_amazon_it, name="keyword-list-it"),
+    path('keyword/ebay/de/', keyword_list_ebay_de, name="keyword-list-ebay-de"),
 
     path('keyword/<int:id>', keyword_detail, name="keyword-detail"),
     path('keyword/create/', KeywordCreateView.as_view(), name="keyword-create"),

@@ -13,9 +13,11 @@ class Marketplace(models.Model):
 
 
 class Keyword(models.Model):
-    keyword = models.CharField(max_length=200,default="", unique=True)
+    keyword = models.CharField(max_length=200,default="")
     marketplace = models.ForeignKey(Marketplace, on_delete=models.CASCADE, default=None, null=True, blank=True)
     
+    class Meta:
+        unique_together = ['keyword', 'marketplace']
     
     def __str__(self):
         return self.keyword

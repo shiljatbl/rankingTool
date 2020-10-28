@@ -69,8 +69,13 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Keywords:</h6>
-            <a class="collapse-item" href="{% url 'keyword-list' %}">Keywords</a>
+            <h6 class="collapse-header">Marketplaces:</h6>
+            <a class="collapse-item" href="{% url 'keyword-list-de' %}">Amazon.de</a>
+            <a class="collapse-item" href="{% url 'keyword-list-fr' %}">Amazon.fr</a>
+            <a class="collapse-item" href="{% url 'keyword-list-it' %}">Amazon.it</a>
+            <a class="collapse-item" href="{% url 'keyword-list-ebay-de' %}">eBay.de</a>
+            <h6 class="collapse-header">All Keywords:</h6>
+            <a class="collapse-item" href="{% url 'keyword-list' %}">All Keywords</a>
             <a class="collapse-item" href="{% url 'crawl-list' %}">Crawl List</a>
           </div>
         </div>
