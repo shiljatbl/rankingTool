@@ -30,26 +30,44 @@ def KeywordScrape(keyword):
     options.add_argument('--disable-gpu')
     driver = webdriver.Chrome(chrome_options=options)
 
+    #amazon acc credentials
+    email = 'amazonscraper007@gmail.com'
+    email_pass = 'Shiljatbl90'
 
-    
     #zipCode = input("Please enter Zip Code:\n")
     time.sleep(1)
     urlSearch = "https://www.Amazon.de"
     print("Setting up geolocation.")
+    
     driver.get("https://www.Amazon.de")
     time.sleep(2)
-    #setovanje ZIP code-a
+    
     locationButton = driver.find_element_by_xpath('//*[@id="nav-global-location-slot"]/span/a')
+    
     locationButton.click()
     time.sleep(1)
-    textBox = driver.find_element_by_xpath('//*[@id="GLUXZipUpdateInput"]')
-    #Unesi zeljeni ZIP
-    textBox.send_keys(crawler_settings.zip_code)
+    
+    sign_in = driver.find_element_by_xpath('//*[@id="GLUXSignInButton"]/span/input')
+    sign_in.click()
     time.sleep(1)
-    okButton = driver.find_element_by_xpath('//*[@id="GLUXZipUpdate"]/span/input')
+
+    text_box_email = driver.find_element_by_xpath('//*[@id="ap_email"]')
+    text_box_email.send_keys(email)
     time.sleep(1)
-    okButton.send_keys(Keys.ENTER)
+
+    next_button_email = driver.find_element_by_xpath('//*[@id="continue"]')
     time.sleep(1)
+    next_button_email.click()
+    time.sleep(1)
+
+    pass_text_box = driver.find_element_by_xpath('//*[@id="ap_password"]')
+    time.sleep(1)
+    pass_text_box.send_keys(email_pass)
+    time.sleep(1)
+    sign_in_btn = driver.find_element_by_xpath('//*[@id="signInSubmit"]')
+    time.sleep(1)
+    sign_in_btn.click()
+    
     driver.get("https://www.amazon.de")
     print("Geolocation setup done.")
     time.sleep(1)
